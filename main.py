@@ -65,7 +65,7 @@ def choice_char_class(char_name: str) -> Character:
     Возвращает строку с выбранным
     классом персонажа.
     """
-    # Добавили словарь, в котором соотносится ввод пользователя и класс персонажа.
+
     game_classes = {'warrior': Warrior, 'mage': Mage, 'healer': Healer}
 
     approve_choice: str  = ''
@@ -82,34 +82,24 @@ def choice_char_class(char_name: str) -> Character:
                                'чтобы выбрать другого персонажа ').lower()
     return char_class
 
+
 def start_training(character):
     """
     Принимает на вход имя и класс персонажа.
     Возвращает сообщения о результатах цикла тренировки персонажа.
     """
-    if char_class == 'warrior':
-        print(f'{char_name}, ты Воитель — великий мастер ближнего боя.')
-    if char_class == 'mage':
-        print(f'{char_name}, ты Маг — превосходный укротитель стихий.')
-    if char_class == 'healer':
-        print(f'{char_name}, ты Лекарь — чародей, способный исцелять раны.')
+
     print('Потренируйся управлять своими навыками.')
     print('Введи одну из команд: attack — чтобы атаковать противника, '
           'defence — чтобы блокировать атаку противника или '
           'special — чтобы использовать свою суперсилу.')
     print('Если не хочешь тренироваться, введи команду skip.')
+
+    commands = {'attack': character.attack, 'defence': character.defence,
+                'special': character.special}
     cmd = None
     while cmd != 'skip':
         cmd = input('Введи команду: ')
-        # Замените блок условных операторов на словарь
-        # и вынесите его из цикла. Здесь останется одно условие
-        # принадлежности введённой команды словарю.
-        # В функции print() будет вызываться метод класса,
-        # который соответствует введённой команде.
-        if cmd == 'attack':
-            print(attack(char_name, char_class))
-        if cmd == 'defence':
-            print(defence(char_name, char_class))
-        if cmd == 'special':
-            print(special(char_name, char_class))
+        if cmd in commands:
+            print(commands[cmd])
     return 'Тренировка окончена.'
